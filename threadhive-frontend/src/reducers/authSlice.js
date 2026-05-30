@@ -53,6 +53,14 @@ export const saveUser = (user) =>{
         dispatch(authSlice.actions.setuser(user));
     }
 }
+
+export const logoutUser = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    return function(dispatch) {
+        dispatch(authSlice.actions.logout());
+    }
+}
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -66,6 +74,10 @@ const authSlice = createSlice({
         setuser: (state, action) => {
             state.user = action.payload;
             
+        },
+        logout: (state) => {
+            state.token = null;
+            state.user = null;
         }
     },
     extraReducers: (builder) => {
