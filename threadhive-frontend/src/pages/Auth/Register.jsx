@@ -31,12 +31,9 @@ function Register() {
   }, [registrationSuccess, dispatch, navigate]);
 
   return (
-    <Container
-      fluid
-      className="auth-container d-flex align-items-center justify-content-center py-5"
-    >
+    <main className="auth-container d-flex align-items-center justify-content-center py-5">
       <Card className="auth-card shadow-lg border-0 rounded-4 p-4 p-md-5">
-        <h2 className="auth-title">Register</h2>
+        <h1 className="auth-title">Register</h1>
         <Form onSubmit={handleSubmit}>
           <Form.Floating className="mb-4">
             <Form.Control
@@ -47,8 +44,11 @@ function Register() {
               placeholder=" "
               required
               className="auth-form-control"
+              aria-required="true"
+              aria-describedby="name-hint"
             />
-            <label htmlFor="floatingName" className="auth-form-label">Name</label>
+            <label htmlFor="floatingName" className="auth-form-label">Full Name</label>
+            <small id="name-hint" className="form-text text-muted d-block mt-1">Enter your full name</small>
           </Form.Floating>
 
           <Form.Floating className="mb-4">
@@ -61,8 +61,11 @@ function Register() {
               placeholder=" "
               required
               className="auth-form-control"
+              aria-required="true"
+              aria-describedby="email-hint"
             />
-            <label htmlFor="floatingEmail" className="auth-form-label">Email</label>
+            <label htmlFor="floatingEmail" className="auth-form-label">Email Address</label>
+            <small id="email-hint" className="form-text text-muted d-block mt-1">Enter your email address</small>
           </Form.Floating>
 
           <Form.Floating className="mb-4">
@@ -75,29 +78,33 @@ function Register() {
               placeholder=" "
               required
               className="auth-form-control"
+              aria-required="true"
+              aria-describedby="password-hint"
             />
             <label htmlFor="floatingPassword" className="auth-form-label">Password</label>
+            <small id="password-hint" className="form-text text-muted d-block mt-1">Enter a secure password</small>
           </Form.Floating>
 
-          {error && <div className="auth-error">{error}</div>}
+          {error && <div className="auth-error" role="alert"><strong>Error:</strong> {error}</div>}
 
           <Button
             type="submit"
             variant="primary"
             className="auth-submit-btn"
             disabled={loading}
+            aria-busy={loading}
           >
             {loading ? (
-              <Spinner animation="border" size="sm" role="status" />
+              <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
             ) : (
               <>
-                <i className="bi bi-person-plus-fill me-2"></i>Register
+                <i className="bi bi-person-plus-fill me-2" aria-hidden="true"></i>Register
               </>
             )}
           </Button>
         </Form>
       </Card>
-    </Container>
+    </main>
   );
 }
 

@@ -31,12 +31,9 @@ function Login() {
   }, [token, navigate]);
 
   return (
-    <Container
-      fluid
-      className="auth-container d-flex align-items-center justify-content-center"
-    >
+    <main className="auth-container d-flex align-items-center justify-content-center">
       <Card className="auth-card shadow-lg border-0 rounded-4 p-4 p-md-5">
-        <h2 className="auth-title">Login</h2>
+        <h1 className="auth-title">Login</h1>
 
         <Form onSubmit={handleSubmit}>
           <Form.Floating className="mb-4">
@@ -49,10 +46,13 @@ function Login() {
               placeholder=" "
               required
               className="auth-form-control"
+              aria-required="true"
+              aria-describedby="email-hint"
             />
             <label htmlFor="floatingEmail" className="auth-form-label">
-              Email
+              Email Address
             </label>
+            <small id="email-hint" className="form-text text-muted d-block mt-1">Enter your registered email</small>
           </Form.Floating>
 
           <Form.Floating className="mb-4">
@@ -65,31 +65,35 @@ function Login() {
               placeholder=" "
               required
               className="auth-form-control"
+              aria-required="true"
+              aria-describedby="password-hint"
             />
             <label htmlFor="floatingPassword" className="auth-form-label">
               Password
             </label>
+            <small id="password-hint" className="form-text text-muted d-block mt-1">Enter your password</small>
           </Form.Floating>
 
-          {error && <div className="auth-error">{error}</div>}
+          {error && <div className="auth-error" role="alert"><strong>Error:</strong> {error}</div>}
 
           <Button
             type="submit"
             variant="primary"
             className="auth-submit-btn"
             disabled={loading}
+            aria-busy={loading}
           >
             {loading ? (
-              <Spinner as="span" animation="border" size="sm" role="status" />
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
             ) : (
               <>
-                <i className="bi bi-box-arrow-in-right me-2"></i>Login
+                <i className="bi bi-box-arrow-in-right me-2" aria-hidden="true"></i>Login
               </>
             )}
           </Button>
         </Form>
       </Card>
-    </Container>
+    </main>
   );
 }
 

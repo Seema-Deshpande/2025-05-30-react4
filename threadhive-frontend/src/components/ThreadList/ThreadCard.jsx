@@ -21,7 +21,7 @@ export default function ThreadCard({ thread, goBack }) {
   };
 
   return (
-    <Card className="single-thread-card">
+    <article className="single-thread-card">
       <Card.Body>
         {goBack && (
           <Button
@@ -29,31 +29,33 @@ export default function ThreadCard({ thread, goBack }) {
             variant="link"
             size="sm"
             className="back-to-home-btn text-decoration-none"
+            aria-label="Back to home"
           >
-            <i className="bi bi-arrow-left me-2"></i>Back to Home
+            <i className="bi bi-arrow-left me-2" aria-hidden="true"></i>Back to Home
           </Button>
         )}
 
         <Row className="g-3">
           {/* Voting UI */}
           <Col xs="auto">
-            <Stack gap={2} className="text-center vote-column">
+            <Stack gap={2} className="text-center vote-column" role="group" aria-label="Thread voting controls">
               <VoteButtons
                 count={thread.voteCount}
                 onUpvote={handleUpvote}
                 onDownvote={handleDownvote}
+                ariaLabel={thread.title}
               />
             </Stack>
           </Col>
 
           {/* Thread content */}
           <Col>
-            <h3 className="thread-title">{thread.title}</h3>
+            <h2 className="thread-title">{thread.title}</h2>
             <p className="thread-content">{thread.content}</p>
 
             <div className="d-flex gap-4 flex-wrap thread-meta">
               <div className="d-flex align-items-center gap-2">
-                <i className="bi bi-person-circle thread-meta-icon"></i>
+                <i className="bi bi-person-circle thread-meta-icon" aria-hidden="true"></i>
                 <span>
                   <strong className="thread-meta-author">
                     {thread.author?.name ?? "Unknown"}
@@ -61,7 +63,7 @@ export default function ThreadCard({ thread, goBack }) {
                 </span>
               </div>
               <div className="d-flex align-items-center gap-2">
-                <i className="bi bi-bookmark thread-meta-icon"></i>
+                <i className="bi bi-bookmark thread-meta-icon" aria-hidden="true"></i>
                 <span className="badge thread-meta-badge">
                   r/{thread.subreddit?.name ?? "unknown"}
                 </span>
@@ -70,6 +72,6 @@ export default function ThreadCard({ thread, goBack }) {
           </Col>
         </Row>
       </Card.Body>
-    </Card>
+    </article>
   );
 }
