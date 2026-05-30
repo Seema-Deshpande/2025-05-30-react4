@@ -47,7 +47,12 @@ export const registerUser = createAsyncThunk(
         }
     }
 );
-
+export const saveUser = (user) =>{
+    localStorage.setItem('user', JSON.stringify(user));
+    return function(dispatch) {
+        dispatch(authSlice.actions.setuser(user));
+    }
+}
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -57,6 +62,10 @@ const authSlice = createSlice({
             state.login.error = null;
             state.register.status = 'idle';
             state.register.error = null;
+        },
+        setuser: (state, action) => {
+            state.user = action.payload;
+            
         }
     },
     extraReducers: (builder) => {
