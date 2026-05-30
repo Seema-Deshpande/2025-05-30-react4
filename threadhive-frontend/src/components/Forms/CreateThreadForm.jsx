@@ -87,43 +87,53 @@ export default function CreateThreadForm({ onClose }) {
 
   return (
     <div className="create-thread-form px-0">
-      <h3 className="form-title">✏️ Create New Thread</h3>
+      <h3 className="form-title"><span aria-hidden="true">✏️</span> Create New Thread</h3>
       <Form onSubmit={handleSubmit}>
         {/* Title */}
         <div className="form-group-custom">
-          <label className="form-label-custom">Thread Title</label>
+          <label htmlFor="thread-title" className="form-label-custom">Thread Title</label>
           <input
+            id="thread-title"
             type="text"
             className="form-control-custom"
             placeholder="What's on your mind?"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            aria-required="true"
+            aria-describedby="thread-title-hint"
           />
+          <small id="thread-title-hint" className="form-text text-muted">Enter a descriptive title for your thread</small>
         </div>
 
         {/* Content */}
         <div className="form-group-custom">
-          <label className="form-label-custom">Content</label>
+          <label htmlFor="thread-content" className="form-label-custom">Content</label>
           <textarea
+            id="thread-content"
             className="form-control-custom form-textarea-custom"
             rows={4}
             placeholder="Share your thoughts..."
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
+            aria-required="true"
+            aria-describedby="thread-content-hint"
           />
+          <small id="thread-content-hint" className="form-text text-muted">Provide the main content for your discussion</small>
         </div>
 
         {/* Subreddit Selection */}
         <div className="form-group-custom">
-          <label className="form-label-custom">Community</label>
+          <label htmlFor="subreddit-select" className="form-label-custom">Community</label>
           {subreddits.length > 0 ? (
             <select
+              id="subreddit-select"
               className="form-control-custom"
               value={subredditId}
               onChange={(e) => handleSubredditSelect(e.target.value)}
               disabled={!!newSubredditName.trim()}
+              aria-describedby="subreddit-hint"
             >
               <option value="">Select a community</option>
               {subreddits.map((sr) => (
@@ -135,12 +145,14 @@ export default function CreateThreadForm({ onClose }) {
           ) : (
             <p className="form-hint">No communities found.</p>
           )}
+          <small id="subreddit-hint" className="form-text text-muted">Choose an existing community or create a new one</small>
 
           <div className="new-subreddit-section">
-            <label className="form-label-custom mb-2">
+            <label htmlFor="new-subreddit-name" className="form-label-custom mb-2">
               Or Create New Community
             </label>
             <input
+              id="new-subreddit-name"
               type="text"
               className="form-control-custom mb-2"
               placeholder={
@@ -153,21 +165,27 @@ export default function CreateThreadForm({ onClose }) {
               disabled={!!subredditId}
             />
             {newSubredditName && !subredditId && (
-              <textarea
-                className="form-control-custom"
-                rows={2}
-                placeholder="Describe your community"
-                value={newSubredditDescription}
-                onChange={(e) => setNewSubredditDescription(e.target.value)}
-                required
-              />
+              <>
+                <label htmlFor="new-subreddit-description" className="form-label-custom">Community Description</label>
+                <textarea
+                  id="new-subreddit-description"
+                  className="form-control-custom"
+                  rows={2}
+                  placeholder="Describe your community"
+                  value={newSubredditDescription}
+                  onChange={(e) => setNewSubredditDescription(e.target.value)}
+                  required
+                  aria-describedby="description-hint"
+                />
+                <small id="description-hint" className="form-text text-muted">Provide a description for your new community</small>
+              </>
             )}
           </div>
         </div>
 
         <div className="form-actions">
-          <button type="submit" className="form-btn form-btn-primary">
-            📝 Post Thread
+          <button type="submit" className="form-btn form-btn-primary" aria-label="Post thread">
+            <span aria-hidden="true">📝</span> Post Thread
           </button>
           <button
             type="button"

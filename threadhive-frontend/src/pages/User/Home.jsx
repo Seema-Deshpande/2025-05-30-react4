@@ -77,7 +77,7 @@ export default function Home() {
   };
 
   return (
-    <div className="home-wrapper">
+    <main className="home-wrapper">
       <Container fluid className="home-content">
         <Card className="border-0 rounded-3 shadow-sm mb-3">
           <Card.Body className="p-3 p-md-4">
@@ -113,8 +113,10 @@ export default function Home() {
                     borderColor: showForm ? undefined : "var(--primary-blue)",
                     fontWeight: "600",
                   }}
+                  aria-expanded={showForm}
+                  aria-controls="create-thread-form"
                 >
-                  {showForm ? "✕ Close" : "➕ Create"}
+                  <span aria-hidden="true">{showForm ? "✕" : "➕"}</span> {showForm ? "Close" : "Create"}
                 </Button>
               </Col>
             </Row>
@@ -127,6 +129,7 @@ export default function Home() {
               <Card
                 className="mb-3 shadow-sm border-0 rounded-3"
                 style={{ backgroundColor: "var(--bg-light)" }}
+                id="create-thread-form"
               >
                 <Card.Body className="p-3">
                   <CreateThreadForm onClose={() => setShowForm(false)} />
@@ -144,7 +147,7 @@ export default function Home() {
                 Error: {error}
               </Card.Text>
             ) : displayThreads && displayThreads.length > 0 ? (
-              <div className="px-0">
+              <section aria-label="Thread list">
                 <PaginationComponent
                   currentPage={currentPage}
                   totalPages={totalPages}
@@ -156,7 +159,7 @@ export default function Home() {
                   totalPages={totalPages}
                   onPageChange={handlePageChange}
                 />
-              </div>
+              </section>
             ) : (
               <Card.Text className="text-muted text-center py-4">
                 No threads found.
@@ -165,6 +168,6 @@ export default function Home() {
           </Card.Body>
         </Card>
       </Container>
-    </div>
+    </main>
   );
 }

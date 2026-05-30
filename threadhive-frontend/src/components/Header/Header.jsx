@@ -34,7 +34,7 @@ function Header({ onToggleSidebar }) {
   };
 
   return (
-    <Navbar className="header-navbar shadow-sm">
+    <Navbar className="header-navbar shadow-sm" as="header">
       <Container
         fluid
         className="header-container d-flex justify-content-between align-items-center"
@@ -44,12 +44,13 @@ function Header({ onToggleSidebar }) {
             <button
               className="hamburger-btn"
               onClick={onToggleSidebar}
-              aria-label="Toggle sidebar"
+              aria-label="Toggle navigation sidebar"
+              type="button"
             >
-              ☰
+              <span aria-hidden="true">☰</span>
             </button>
           )}
-          <h1 className="header-logo" onClick={() => navigate("/home")}>
+          <h1 className="header-logo" role="button" onClick={() => navigate("/home")} tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && navigate("/home")}>
             ThreadHive
           </h1>
         </div>
@@ -59,8 +60,9 @@ function Header({ onToggleSidebar }) {
             onClick={handleToggleDarkMode}
             aria-label="Toggle dark mode"
             title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            type="button"
           >
-            {darkMode ? "☀️" : "🌙"}
+            <span aria-hidden="true">{darkMode ? "☀️" : "🌙"}</span>
           </button>
           {token ? (
             <>
@@ -70,7 +72,7 @@ function Header({ onToggleSidebar }) {
                 onClick={handleProfileClick}
                 aria-label={`Open profile for ${user?.name ?? "User"}`}
               >
-                <div className="user-avatar">
+                <div className="user-avatar" aria-hidden="true">
                   {user?.name?.charAt(0).toUpperCase() ?? "U"}
                 </div>
                 <span className="user-name">{user?.name ?? "User"}</span>

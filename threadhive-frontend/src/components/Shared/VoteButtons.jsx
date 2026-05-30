@@ -9,18 +9,20 @@ export default function VoteButtons({ count, onUpvote, onDownvote, ariaLabel = "
         onClick={onUpvote} 
         aria-label={`Upvote ${ariaLabel}`}
         className="vote-btn"
+        type="button"
       >
-        <i className="bi bi-arrow-up"></i>
+        <i className="bi bi-arrow-up" aria-hidden="true"></i>
       </Button>
-      <span className="vote-count">{count || 0}</span>
+      <span className="vote-count" aria-label={`${count || 0} votes`}>{count || 0}</span>
       <Button 
         variant="light" 
         size="sm" 
         onClick={onDownvote} 
         aria-label={`Downvote ${ariaLabel}`}
         className="vote-btn"
+        type="button"
       >
-        <i className="bi bi-arrow-down"></i>
+        <i className="bi bi-arrow-down" aria-hidden="true"></i>
       </Button>
     </>
   );

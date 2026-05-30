@@ -35,9 +35,9 @@ function App() {
   useEffect(() => {
     // Apply dark mode to the document
     if (darkMode) {
-      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-bs-theme', 'dark');
     } else {
-      document.documentElement.removeAttribute('data-theme');
+      document.documentElement.removeAttribute('data-bs-theme');
     }
   }, [darkMode]);
 
@@ -47,42 +47,40 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="app-layout">
+      <div className="app-layout" data-theme={darkMode ? 'dark' : 'light'}>
         <Header onToggleSidebar={toggleSidebar} />
         <div className="app-container">
           {token && <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />}
-          <main className="main-center-content">
-            <Routes>
-              <Route path="/" element={<Navigate to="/home" />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route
-                path="/thread/:threadId"
-                element={
-                  <PrivateRoute>
-                    <ThreadPage />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/home"
-                element={
-                  <PrivateRoute>
-                    <Home />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <PrivateRoute>
-                    <Profile />
-                  </PrivateRoute>
-                }
-              />
-              <Route path="*" element={<Navigate to="/home" replace />} />
-            </Routes>
-          </main>
+          <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/thread/:threadId"
+              element={
+                <PrivateRoute>
+                  <ThreadPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/home" replace />} />
+          </Routes>
         </div>
         <Footer />
       </div>
